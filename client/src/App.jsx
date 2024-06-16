@@ -6,7 +6,7 @@ function App() {
 
   return (
     <>
-      <h1>API Documentation</h1>
+      <h1>Medical Laboratory Science</h1>
     </>
   )
 }
