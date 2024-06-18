@@ -1,0 +1,25 @@
+* {
+    box-sizing: border-box;
+}
+
+.nav {
+    background-color: rgb(244, 244, 244);
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20rem;
+    padding: 0 1rem;
+    margin-bottom: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.nav ul {
+    display: flex;
+    gap: 1rem;
+    list-style: none;
+    
+
+}
