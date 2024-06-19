@@ -2,7 +2,8 @@ import React, { useState } from 'react'
 import { RouterProvider, createBrowserRouter, createRoutesFromElements, Route, Link } from 'react-router-dom';
 import './App.css'
 import Login from './pages/login/login';
-import Home from './pages/home/home'
+import Home from './pages/home/home';
+import Register from './pages/register/register';
 import Navbar from './components/navbar/navbar';
 
 function App() {
@@ -11,7 +12,8 @@ function App() {
 const router = createBrowserRouter(createRoutesFromElements(
   <Route>
     <Route path="/" element={ <Home/> } />
-    <Route path="login" element={ <Login />} />
+    <Route path="login" element={ <Login/>} />
+    <Route path="register" element={ <Register/>} />
   </Route>
 ));
 

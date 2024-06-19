@@ -8,7 +8,7 @@ const mongoose = require('mongoose');
 // Environment Vairables 
 require('dotenv').config();
 const mongo = process.env.MONGODB_URI;
-const port = process.env.PORT || 4500;
+const port = process.env.PORT || 5500;
 
 // Models
 
