@@ -78,7 +78,9 @@ function Register () {
               alert('Invalid entry. Password must contain at least one special character')   
              };
              
-             alert("form valid")
+             if (countUpperCase >= 1 && countLowerCase >= 1 && countDigit >= 1 && countSpecialChar >= 1) {
+                alert("form valid")
+             };
           };
 
     return (
