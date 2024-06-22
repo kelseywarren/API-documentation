@@ -5,6 +5,11 @@ import Login from './pages/login/login';
 import Home from './pages/home/home';
 import Register from './pages/register/register';
 import Navbar from './components/navbar/navbar';
+import axios from 'axios';
+
+axios.defaults.baseURL = 'http://localhost:5500';
+axios.defaults.withCredentials = true; 
+
 
 function App() {
 

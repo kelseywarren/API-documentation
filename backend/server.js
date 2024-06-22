@@ -11,10 +11,13 @@ const mongo = process.env.MONGODB_URI;
 const port = process.env.PORT || 5500;
 
 // Models
+const user = require('./models/users');
 
 // Cors
 const cors = require('cors');
 app.use(cors());
+
+app.use('/', require('./routes/auth-routes')); 
 
 // Database and server connect 
 mongoose.connect(`${mongo}`)
@@ -27,3 +30,4 @@ mongoose.connect(`${mongo}`)
 .catch((error) => {
     console.log("Failed to connect to database"); 
 }); 
+
