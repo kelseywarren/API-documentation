@@ -63,17 +63,17 @@ async function registerUser (req, res) {
     };
     // Check if password is missing lowercase letter
     if (countLowerCase == 0) {
-    res.json({error: 'password must contain at least one upper case character'})
+    res.json({error: 'password must contain at least one lower case character'})
     };
 
     // Check if password is missing number
     if (countDigit == 0) {
-    res.json({error: 'password must contain at least one upper case character'})
+    res.json({error: 'password must contain at least one numerical digit'})
     };
 
     // Check if password is missing special character
     if (countSpecialChar == 0) {
-    res.json({error: 'password must contain at least one upper case character'}) 
+    res.json({error: 'password must contain at least one special character'}) 
     };
 
     // Check if user name already exist
