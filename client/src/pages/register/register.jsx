@@ -85,12 +85,26 @@ function Register () {
              };
           };
 
-          
+          async function registerUser(e) {
+            e.preventDefault();
+            const { username, email, password } = userData
+            try {
+              const {userData} = await axios.post('/register', {
+                username, email, password
+              })
+              if (userData) {
+                setUserData({})
+              }
+
+            } catch(error) {
+                console.log(error)
+            }
+          };
 
     return (
 
         <div>
-            <form>
+            <form onSubmit={registerUser}>
                 <label for="username">Username</label>
                 <br></br>
                     <input
