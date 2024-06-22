@@ -15,7 +15,12 @@ const user = require('./models/users');
 
 // Cors
 const cors = require('cors');
-app.use(cors());
+app.use(cors({
+  credentials: true,
+  origin: 'http://localhost:5173'
+}));
+
+app.use(express.json());
 
 app.use('/', require('./routes/auth-routes')); 
 
