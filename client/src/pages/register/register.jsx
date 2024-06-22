@@ -12,17 +12,17 @@ function Register () {
         function validateForm() {
       
             // Check if username field is empty
-            if (username.length == 0) {
+            if (userData.username.length == 0) {
               alert('Invalid entry. Username cannot be empty')
               return
             };
             // Check if email field is empty
-            if (email.length == 0) {
+            if (userData.email.length == 0) {
               alert('Invalid entry. Email cannot be empty')
               return
             };
             // Check password character count
-            if (password.length < 8) {
+            if (userData.password.length < 8) {
               alert('Invalid entry. Password must be at least 8 characters long')
               return
             };
@@ -35,26 +35,26 @@ function Register () {
 
 
             // Loop to check each password
-            for (let i = 0; i < password.length; i++) {
+            for (let i = 0; i < userData.password.length; i++) {
       
               const specialChars = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '-', '+', '=', '[', '{', ']', '}', ':', ';', '<', '>']
               // Check if password contains uppercase letter
-              if (password[i] == password[i].toUpperCase()) {
+              if (userData.password[i] == userData.password[i].toUpperCase()) {
                 countUpperCase++; 
               };
 
               // Check if password contains lowercase letter
-              if (password[i] == password[i].toLowerCase()) {
+              if (userData.password[i] == userData.password[i].toLowerCase()) {
                 countLowerCase++;
               };
 
               // Check if password contains a number
-              if (!isNaN(password[i] * 1)) {
+              if (!isNaN(userData.password[i] * 1)) {
                 countDigit++;
               };
               
               // Check if password contains a special character
-              if (specialChars.includes(password[i])) {
+              if (specialChars.includes(userData.password[i])) {
                countSpecialChar++;
               };
 
