@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-
+import axios from 'axios';
 
 function Register () {
-    const [username, setUsername] = useState(''); // store username
-    const [email, setEmail] = useState(''); // store email
-    const [password, setPassword] = useState(''); // store password
+    const [userData, setUserData] = useState({
+        username: '',
+        email: '', 
+        password: ''
+    });
 
         // Function to check if form meets specified requirements
         function validateForm() {
@@ -83,6 +85,8 @@ function Register () {
              };
           };
 
+          
+
     return (
 
         <div>
@@ -92,7 +96,8 @@ function Register () {
                     <input
                     placeholder="username..."
                     type="text"
-                    onChange={(e) => setUsername(e.target.value)}
+                    value={userData.username}
+                    onChange={(e) => setUserData({...userData, username: e.target.value})}
                     className="username"
                     required
                     /> 
@@ -102,7 +107,8 @@ function Register () {
                     <input 
                     placeholder="email..."
                     type="text"
-                    onChange={(e) => setEmail(e.target.value)}
+                    value={userData.email}
+                    onChange={(e) => setUserData({...userData, email: e.target.value})}
                     className="email"
                     required
                     />
@@ -112,7 +118,8 @@ function Register () {
                     <input
                     placeholder="password..."
                     type="text"
-                    onChange={(e) => setPassword(e.target.value)}
+                    value={userData.password}
+                    onChange={(e) => setUserData({...userData, password: e.target.value})}
                     className="password"
                     required
                     />
