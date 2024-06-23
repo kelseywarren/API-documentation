@@ -1,7 +1,10 @@
+// Imports 
 import React, { useState } from 'react';
 import axios from 'axios';
 
+// Main component 
 function Register () {
+    // User data state as an object 
     const [userData, setUserData] = useState({
         username: '',
         email: '', 
@@ -85,6 +88,7 @@ function Register () {
              };
           };
 
+          // Function to register a user 
           async function registerUser(e) {
             e.preventDefault();
             const { username, email, password } = userData
@@ -102,7 +106,7 @@ function Register () {
           };
 
     return (
-
+        // Form filled out by user 
         <div>
             <form onSubmit={registerUser}>
                 <label for="username">Username</label>
@@ -147,4 +151,5 @@ function Register () {
     )
 };
 
+// Export Register to be used in App 
 export default Register;
