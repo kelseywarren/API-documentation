@@ -20,8 +20,10 @@ app.use(cors({
   origin: 'http://localhost:5173'
 }));
 
+// Parse requests
 app.use(express.json());
 
+// Routes 
 app.use('/', require('./routes/auth-routes')); 
 
 // Database and server connect 
