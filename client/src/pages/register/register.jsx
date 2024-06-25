@@ -1,9 +1,13 @@
 // Imports 
 import React, { useState } from 'react';
 import axios from 'axios';
+import {toast} from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 // Main component 
 function Register () {
+    //Navigate
+    const navigate = useNavigate();
     // User data state as an object 
     const [userData, setUserData] = useState({
         username: '',
@@ -11,99 +15,27 @@ function Register () {
         password: ''
     });
 
-        // Function to check if form meets specified requirements
-        function validateForm() {
-      
-            // Check if username field is empty
-            if (userData.username.length == 0) {
-              alert('Invalid entry. Username cannot be empty')
-              return
-            };
-            // Check if email field is empty
-            if (userData.email.length == 0) {
-              alert('Invalid entry. Email cannot be empty')
-              return
-            };
-            // Check password character count
-            if (userData.password.length < 8) {
-              alert('Invalid entry. Password must be at least 8 characters long')
-              return
-            };
 
-             //variables
-            let countUpperCase = 0;
-            let countLowerCase = 0;
-            let countDigit = 0;
-            let countSpecialChar = 0;
+    // Function to register a user 
+    async function registerUser(e) {
+    e.preventDefault();
+    const { username, email, password } = userData;
+    try {
+        const {data} = await axios.post('/register', {
+        username, email, password
+        })
+        if (data.error) {
+            toast.error(data.error);
+        } else {
+            setUserData({});
+            toast.success('Account created!');
+            navigate('/login');
+        }
 
-
-            // Loop to check each password
-            for (let i = 0; i < userData.password.length; i++) {
-      
-              const specialChars = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '-', '+', '=', '[', '{', ']', '}', ':', ';', '<', '>']
-              // Check if password contains uppercase letter
-              if (userData.password[i] == userData.password[i].toUpperCase()) {
-                countUpperCase++; 
-              };
-
-              // Check if password contains lowercase letter
-              if (userData.password[i] == userData.password[i].toLowerCase()) {
-                countLowerCase++;
-              };
-
-              // Check if password contains a number
-              if (!isNaN(userData.password[i] * 1)) {
-                countDigit++;
-              };
-              
-              // Check if password contains a special character
-              if (specialChars.includes(userData.password[i])) {
-               countSpecialChar++;
-              };
-
-            };
-
-            // Check if password is missing uppercase letter 
-            if (countUpperCase == 0) {
-              alert('Invalid entry. Password must contain at least one upper case character')
-              
-            };
-            // Check if password is missing lowercase letter
-            if (countLowerCase == 0) {
-              alert('Invalid entry. Password must contain at least one lower case character')
-            };
-
-            // Check if password is missing number
-            if (countDigit == 0) {
-              alert('Invalid entry. Password must contain at least one numerical digit')
-            };
-
-            // Check if password is missing special character
-            if (countSpecialChar == 0) {
-              alert('Invalid entry. Password must contain at least one special character')   
-             };
-             
-             if (countUpperCase >= 1 && countLowerCase >= 1 && countDigit >= 1 && countSpecialChar >= 1) {
-                alert("form valid")
-             };
-          };
-
-          // Function to register a user 
-          async function registerUser(e) {
-            e.preventDefault();
-            const { username, email, password } = userData
-            try {
-              const {userData} = await axios.post('/register', {
-                username, email, password
-              })
-              if (userData) {
-                setUserData({})
-              }
-
-            } catch(error) {
-                console.log(error)
-            }
-          };
+    } catch(error) {
+        console.log(error)
+    }
+    };
 
     return (
         // Form filled out by user 
@@ -142,9 +74,7 @@ function Register () {
                     required
                     />
                 <br></br><br></br>
-                <button onClick={() => {
-                    validateForm()
-                }}>Create Account</button>
+                <button>Create Account</button>
             </form>
         </div>
 
