@@ -11,16 +11,24 @@ async function registerUser (req, res) {
   try {
     const {username, email, password} = req.body;
     if (!username) {
-        return res.json({error: 'username is required'});
+        return res.json({
+            error: 'username is required'
+        })
     };
     if (!email) {
-        return res.json({error: 'email address is required'})
+        return res.json({
+            error: 'email address is required'
+        })
     };
     if (!password) {
-        return res.json({error: 'password is required'})
+        return res.json({
+            error: 'password is required'
+        })
     };
     if (password.length < 8) {
-        return res.json({error: 'password must be at least 8 characters long'})
+        return res.json({
+            error: 'password must be at least 8 characters long'
+        })
     };
 
     //variables
@@ -59,7 +67,6 @@ async function registerUser (req, res) {
     // Check if password is missing uppercase letter 
     if (countUpperCase == 0) {
     res.json({error: 'password must contain at least one upper case character'})
-    
     };
     // Check if password is missing lowercase letter
     if (countLowerCase == 0) {
