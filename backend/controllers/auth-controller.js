@@ -1,4 +1,4 @@
-// import User model to check against database and create a user
+// Import User model to check against database and create a user
 const User = require('../models/users');
 
 // test function
@@ -98,7 +98,6 @@ async function registerUser (req, res) {
         password,
     });
 
-
     // Send user details as response 
     return res.json(user);
 
@@ -107,8 +106,29 @@ async function registerUser (req, res) {
   }  
 };
 
+// Function for logging in user
+async function loginUser(req, res) {
+    try {
+      const { email, password } = req.body;
+      const user = await User.findOne({email})
+      if(!user){
+        return res.json({
+            error: 'email not found'
+        })
+      } else {
+        return res.json(
+            'logged!'
+            )
+        // refactoring and additions to be made //
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  
 // Export controller functions to be used in routes
 module.exports = {
     test,
-    registerUser
+    registerUser,
+    loginUser
 };
