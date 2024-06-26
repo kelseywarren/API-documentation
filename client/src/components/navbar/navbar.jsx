@@ -9,6 +9,7 @@ function Navbar() {
                 <li>
                     <a href="/login">login</a>
                     <a href="/register">register</a>
+                    <a href="/dashboard">dashboard</a>
                 </li>
             </ul>
         </nav>

@@ -5,6 +5,7 @@ import './App.css'
 import Login from './pages/login/login';
 import Home from './pages/home/home';
 import Register from './pages/register/register';
+import Dashboard from './pages/dashboard/dashboard';
 import Navbar from './components/navbar/navbar';
 import axios from 'axios';
 import { Toaster } from 'react-hot-toast';
@@ -22,6 +23,7 @@ const router = createBrowserRouter(createRoutesFromElements(
     <Route path="/" element={ <Home/> } />
     <Route path="login" element={ <Login/>} />
     <Route path="register" element={ <Register/>} />
+    <Route path="dashboard" element={<Dashboard />} />
   </Route>
 ));
 
