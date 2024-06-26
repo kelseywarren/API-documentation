@@ -49,7 +49,6 @@ function Register () {
                     value={userData.username}
                     onChange={(e) => setUserData({...userData, username: e.target.value})}
                     className="username"
-                    required
                     /> 
                 <br></br>
                 <label for="email">Email</label>
@@ -59,8 +58,7 @@ function Register () {
                     type="text"
                     value={userData.email}
                     onChange={(e) => setUserData({...userData, email: e.target.value})}
-                    className="email"
-                    required
+                    className="email" 
                     />
                 <br></br>
                 <label for="password">Password</label>
@@ -70,8 +68,7 @@ function Register () {
                     type="text"
                     value={userData.password}
                     onChange={(e) => setUserData({...userData, password: e.target.value})}
-                    className="password"
-                    required
+                    className="password" 
                     />
                 <br></br><br></br>
                 <button>Create Account</button>
