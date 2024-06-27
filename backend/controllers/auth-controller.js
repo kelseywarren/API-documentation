@@ -1,15 +1,23 @@
 // Import User model to check against database and create a user
 const User = require('../models/users');
 
-// test function
+// Test function
 function test(req, res) {
     res.json('test route working')
 };
 
-// function for registering user 
+// Function for registering user 
 async function registerUser (req, res) {
   try {
     const {username, email, password} = req.body;
+
+    // Email requirement variable
+    const checkEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    // Username requirement variables
+    const checkUsername = /^[a-z0-9_]+$/;
+    const checkUsernameLength = /(?=.{1,24})/;
+
     // Password requirement variables
     const lowerCaseCheck = /(?=.*[a-z])/;
     const upperCaseCheck = /(?=.*[A-Z])/;
@@ -21,9 +29,8 @@ async function registerUser (req, res) {
     if (!username && !email && !password) {
         return res.json({
             error: 'username, email, and password are required'
-        })
-    }
-
+        });
+    };
     // Check if username field is empty
     if (!username) {
         return res.json({
@@ -34,14 +41,36 @@ async function registerUser (req, res) {
     if (!email) {
         return res.json({
             error: 'email address is required'
-        })
+        });
     };
     // Check if password field is empty
     if (!password) {
         return res.json({
             error: 'password is required and must contain at least one lowercase, uppercase, numerical, and special character'
-        })
+        });
     };
+    
+
+    // Check if username is valid
+    if (!username.match(checkUsername)) {
+        return res.json({
+            error:
+            "username can only contain the following characters: lowercase(a-z), numbers(0-9), and underscore(_)",
+            });
+        };
+        // Check username length
+        if (!username.match(checkUsernameLength)) {
+        return res.json({
+            error: "username cannot exceed 24 characters",
+            });
+        };
+        // Check if email address is valid
+        if (!email.match(checkEmail)) {
+        return res.json({
+            error: "please enter valid email address",
+            });
+        };
+      
 
     // Check if password has upper case letter
     if (!password.match(lowerCaseCheck)) {
@@ -109,17 +138,31 @@ async function registerUser (req, res) {
 // Function for logging in user
 async function loginUser(req, res) {
     try {
-      const { email, password } = req.body;
-      const user = await User.findOne({email})
-      if(!user){
+      const { identifier, password } = req.body;
+        
+      // Checks if email or username field is empty
+      if (!identifier) {
         return res.json({
-            error: 'email not found'
-        })
+          error: "email or username required",
+        });
+      } 
+      // Check if password field is empty
+      if (!password) {
+        return res.json({
+          error: "password is required",
+        });
+      }
+    
+      // Check if email or username is in database
+      const user = await User.findOne({
+        $or: [{ email: identifier }, { username: identifier }]
+      });
+      if (!user) {
+        return res.json({
+          error: "login credentials not found",
+        });
       } else {
-        return res.json(
-            'logged!'
-            )
-        // refactoring and additions to be made //
+        return res.json("user succesffully logged in!");
       }
     } catch (error) {
       console.log(error);

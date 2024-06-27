@@ -8,19 +8,19 @@ import { useNavigate } from "react-router-dom";
 function Login() {
   // Navigate
   const navigate = useNavigate();
-  // User data state as an object
+  // User data state as an object (identifier used in place of email and username)
   const [userData, setUserData] = useState({
-    email: "",
+    identifier:"",
     password: ""
   });
 
   // Function to log in user
   async function loginUser(e) {
     e.preventDefault();
-    const { email, password } = userData;
+    const { identifier, password } = userData;
     try {
       const { data } = await axios.post("/login", {
-        email,
+        identifier,
         password
       });
       if (data.error) {
@@ -34,24 +34,37 @@ function Login() {
       console.log(error);
     }
   }
+// Handler function for input value change in email or username input field 
+ function emailUserHandler(e) {
+    const { value } = e.target;
+    setUserData({ ...userData, identifier: value });
+  };
+// Handler function for input value change in passowrd input field
+  function passwordHandler(e) {
+    const { name, value } = e.target;
+    setUserData({ ...userData, [name]: value });
+  }
+
 
     return (
         // Form filled out by user
         <form onSubmit={loginUser}>
             <input 
-                className="enterEmail"
-                type="email" 
-                placeholder="email" 
-                value={userData.email}
-                onChange={(e) => setUserData({...userData, email: e.target.value})}>
+                className="enterIdentifier"
+                type="text" 
+                name="identifier"
+                placeholder="email or username" 
+                value={userData.identifier}
+                onChange={emailUserHandler}>
             </input>
             <br></br>
             <input 
                 className="enterPassword"
                 type="text"
+                name="password"
                 placeholder="password"
                 value={userData.password}
-                onChange={(e) => setUserData({...userData, password: e.target.value})}>
+                onChange={passwordHandler}>
             </input>
             <br></br>
             <button className="loginButton" type="submit">log in</button>
