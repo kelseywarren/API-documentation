@@ -1,5 +1,9 @@
-// Import User model to check against database and create a user
+// Import User model to check user data against database
 const User = require('../models/users');
+
+// Import password hash helper functions for authentication
+const { passwordHash, comparePassword } = require("../helpers/auth");
+
 
 // Test function
 function test(req, res) {
@@ -46,7 +50,7 @@ async function registerUser (req, res) {
     // Check if password field is empty
     if (!password) {
         return res.json({
-            error: 'password is required and must contain at least one lowercase, uppercase, numerical, and special character'
+            error: 'password is required, and must contain at least one of the following characters: lowercase(a-z), uppercase(A-Z), number(0-9), special(!@#$%^&*)'
         });
     };
     
@@ -55,7 +59,7 @@ async function registerUser (req, res) {
     if (!username.match(checkUsername)) {
         return res.json({
             error:
-            "username can only contain the following characters: lowercase(a-z), numbers(0-9), and underscore(_)",
+            "username can only contain the following characters: lowercase(a-z), numbers(0-9), underscore(_)",
             });
         };
         // Check username length
@@ -72,13 +76,13 @@ async function registerUser (req, res) {
         };
       
 
-    // Check if password has upper case letter
+    // Check if password has lower case letter
     if (!password.match(lowerCaseCheck)) {
     return res.json({
         error: "password must contain a lower case letter",
     });
     }
-    // Check if password has lower case letter
+    // Check if password has upper case letter
     if (!password.match(upperCaseCheck)) {
     return res.json({
         error: "password must contain an uppercase case letter",
@@ -120,13 +124,14 @@ async function registerUser (req, res) {
         })
     };
 
+    // Variable for hashing password before storing in database
+    const hashedPassword = await passwordHash(password);
     // Create user once all conditions satisfied
     const user = await User.create({
-        username, 
-        email, 
-        password,
+        username,
+        email,
+        password: hashedPassword,
     });
-
     // Send user details as response 
     return res.json(user);
 
@@ -161,9 +166,16 @@ async function loginUser(req, res) {
         return res.json({
           error: "login credentials not found",
         });
-      } else {
-        return res.json("user succesffully logged in!");
-      }
+      } 
+    // Check if password entered by user matches password stored in database
+    const pwMatch = await comparePassword(password, user.password);
+    if (!pwMatch) {
+      res.json({
+        error: "Invalid login credentials entered",
+      });
+    } else {
+      return res.json("user successfully logged in!");
+    }
     } catch (error) {
       console.log(error);
     }
