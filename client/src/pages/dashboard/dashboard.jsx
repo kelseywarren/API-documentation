@@ -2,10 +2,28 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import LogoutButton from '../logout/logout';
+import { useNavigate } from 'react-router-dom';
 
 function Dashboard() {
   // Username state
   const [username, setUsername] = useState('');
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    async function checkLoginStatus() {
+      try {
+        const response = await axios.get('/dashboard');
+        if (response.status !== 200) {
+          navigate('/login');
+        }
+      } catch (error) {
+        console.log(error);
+        navigate('/login');
+      }
+    };
+
+    checkLoginStatus();
+  }, [navigate]);
 
   // Get username 
   useEffect(() => {
@@ -14,7 +32,7 @@ function Dashboard() {
         const { data } = await axios.get('/dashboard', { withCredentials: true });
         setUsername(data.username);
       } catch (error) {
-        console.error(error);
+        console.log(error);
       }
     };
     getUsername();

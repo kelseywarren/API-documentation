@@ -1,7 +1,7 @@
 // Express
 const express = require('express');
 const session = require('express-session');
-const mongoDBStore = require('connect-mongodb-session')(session);
+const MongoDBStore = require('connect-mongodb-session')(session);
 const app = express();
 
 
@@ -26,7 +26,7 @@ app.use(cors({
 }));
 
 // Configure session 
-const store = new mongoDBStore({
+const store = new MongoDBStore({
   uri: `${mongo}`,
   collection: 'sessions'
 }); 
@@ -40,6 +40,10 @@ app.use(session({
     expires: new Date(Date.now() + (1000 * 60 * 60 * 24))
   }
 }))
+
+store.on('error', function(error) {
+  console.error(error);
+})
 
 // Parse requests
 app.use(express.json());

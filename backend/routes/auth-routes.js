@@ -8,6 +8,8 @@ const { registerUser } = require('../controllers/registration-auth');
 const { loginUser } = require('../controllers/login-auth');
 const { getLoggedInUser } = require('../controllers/user');
 const { logoutUser } = require('../controllers/logout');
+
+const { requireLogin } = require('../middleware/auth-middleware');
  
 // Handle cors
 router.use(cors({
@@ -18,7 +20,7 @@ router.use(cors({
 // Routes
 router.post('/register', registerUser)
 router.post('/login', loginUser)
-router.get('/dashboard', getLoggedInUser)
+router.get('/dashboard', requireLogin, getLoggedInUser)
 router.post('/logout', logoutUser)
 
 // Export router
