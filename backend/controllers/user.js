@@ -1,8 +1,9 @@
-  // Get username from session stored on mongodb 
+  // Get username from user session stored on mongodb 
   async function getLoggedInUser(req, res)  {
     try {
+      // Check if user session exist
       if (req.session.user) {
-        // Retrieve user details from session
+        // Retrieve username from session data stored in database 
         const { username } = req.session.user;
         res.json({ username });
       } else {

@@ -7,6 +7,7 @@ const { comparePassword } = require("../helpers/auth");
 // Function for logging in user
 async function loginUser(req, res) {
     try {
+      // Request body received from loginUser function in front end 
       const { identifier, password } = req.body;
         
       // Checks if email or username field is empty
@@ -22,8 +23,9 @@ async function loginUser(req, res) {
         });
       }
     
-      // Check if email or username is in database
+      // Check if user's email or username is in database
       const user = await User.findOne({
+        // Check user input(identifier) and search database based on if user typed email or their username for loggin in
         $or: [{ email: identifier }, { username: identifier }]
       });
       if (!user) {
@@ -31,13 +33,15 @@ async function loginUser(req, res) {
           error: "login credentials not found",
         });
       } 
-    // Check if password entered by user matches password stored in database
+    // Once user's email or username  is located in database, check if password entered by user matches password stored in database
     const pwMatch = await comparePassword(password, user.password);
+    // Reject if password does not match database 
     if (!pwMatch) {
       res.json({
         error: "Invalid login credentials entered",
       });
     } else {
+      // Login user if all credentials are valid  
       req.session.user={
         id: user._id,
         username: user.username,

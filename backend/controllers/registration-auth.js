@@ -6,6 +6,7 @@ const { passwordHash } = require("../helpers/auth");
 // Function for registering user 
 async function registerUser (req, res) {
   try {
+    // Request body received from POST request made in the front end (registerUser function in register.jsx)
     const {username, email, password} = req.body;
 
     // Email requirement variable
@@ -119,6 +120,7 @@ async function registerUser (req, res) {
 
     // Variable for hashing password before storing in database
     const hashedPassword = await passwordHash(password);
+    
     // Create user once all conditions satisfied
     const user = await User.create({
         username,

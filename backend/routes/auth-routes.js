@@ -9,6 +9,7 @@ const { loginUser } = require('../controllers/login-auth');
 const { getLoggedInUser } = require('../controllers/user');
 const { logoutUser } = require('../controllers/logout');
 
+// Import middleware 
 const { requireLogin } = require('../middleware/auth-middleware');
  
 // Handle cors

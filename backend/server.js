@@ -1,9 +1,14 @@
 // Express
 const express = require('express');
-const session = require('express-session');
-const MongoDBStore = require('connect-mongodb-session')(session);
-const app = express();
 
+// Express session
+const session = require('express-session');
+
+// Session store in mongoDB 
+const MongoDBStore = require('connect-mongodb-session')(session);
+
+// Execute express function 
+const app = express();
 
 // Mongoose
 const mongoose = require('mongoose');
@@ -13,7 +18,6 @@ require('dotenv').config();
 const mongo = process.env.MONGODB_URI;
 const secretkey = process.env.SESSIONKEY
 const port = process.env.PORT || 5500;
-
 
 // Models
 const user = require('./models/users');
@@ -31,6 +35,7 @@ const store = new MongoDBStore({
   collection: 'sessions'
 }); 
 
+// Express session middleware 
 app.use(session({
   secret: `${secretkey}`,
   resave: false,
@@ -41,11 +46,12 @@ app.use(session({
   }
 }))
 
+// Handle mongoDB store errors 
 store.on('error', function(error) {
   console.error(error);
 })
 
-// Parse requests
+// Parse requests middleware 
 app.use(express.json());
 
 // Routes 
@@ -53,13 +59,14 @@ app.use('/', require('./routes/auth-routes'));
 
 // Database and server connect 
 mongoose.connect(`${mongo}`)
+  // Handle successful connection to database 
   .then(() => {
     console.log('Connected to Database!')
     app.listen(port, () => {
         console.log(`server running on port ${port}`);
   });
 })
-.catch((error) => {
-    console.log("Failed to connect to database"); 
+  // Handle failure to connect to database 
+    .catch((error) => {
+      console.log("Failed to connect to database"); 
 }); 
-

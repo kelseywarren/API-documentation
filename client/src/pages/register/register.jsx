@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 // Main component 
 function Register () {
-    //Navigate
+    //Navigate (redirect)
     const navigate = useNavigate();
     // User data state as an object 
     const [userData, setUserData] = useState({
@@ -19,16 +19,20 @@ function Register () {
     // Function to register a user 
     async function registerUser(e) {
     e.preventDefault();
+    // Destructered from userData state object. These values represent what the current value of the input fields currently are. (Holds the form input data)
     const { username, email, password } = userData;
     try {
         const {data} = await axios.post('/register', {
-        username, email, password
+        // Request body data. Username, email, and password are sent to registration-auth controller in the backend to perform validation, and ultimately create a user.  
+        username, email, password 
         })
         if (data.error) {
+            // Handles any return res.json({error: }) in the backend
             toast.error(data.error);
         } else {
             setUserData({});
             toast.success('Account created!');
+            // Redirect to login page upon successful registration 
             navigate('/login');
         }
 
