@@ -5,7 +5,7 @@ const cors = require('cors');
 
 // Import controllers 
 const { registerUser } = require('../controllers/registration-auth');
-const { loginUser } = require('../controllers/login -auth');
+const { loginUser } = require('../controllers/login-auth');
 const { getLoggedInUser } = require('../controllers/user');
 
 // Handle cors
