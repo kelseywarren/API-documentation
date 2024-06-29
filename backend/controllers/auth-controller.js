@@ -174,6 +174,11 @@ async function loginUser(req, res) {
         error: "Invalid login credentials entered",
       });
     } else {
+      req.session.user={
+        id: user._id,
+        username: user.username,
+        email: user.email
+      }
       return res.json("user successfully logged in!");
     }
     } catch (error) {
