@@ -1,6 +1,7 @@
 // Imports 
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import LogoutButton from '../logout/logout';
 
 function Dashboard() {
   // Username state
@@ -22,6 +23,7 @@ function Dashboard() {
   return (
     <div>
       <p>Welcome, {username}!</p>
+      <LogoutButton />
     </div>
   );
 }

@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { RouterProvider, createBrowserRouter, createRoutesFromElements, Route } from 'react-router-dom';
 import './App.css'
 import Login from './pages/login/login';
+import LogoutButton from './pages/logout/logout';
 import Home from './pages/home/home';
 import Register from './pages/register/register';
 import Dashboard from './pages/dashboard/dashboard';
@@ -24,6 +25,7 @@ const router = createBrowserRouter(createRoutesFromElements(
     <Route path="login" element={ <Login/>} />
     <Route path="register" element={ <Register/>} />
     <Route path="dashboard" element={<Dashboard />} />
+    <Route path="logout" element={<LogoutButton />} />
   </Route>
 ));
 

@@ -36,6 +36,9 @@ app.use(session({
   resave: false,
   saveUninitalized: false,
   store: store,
+  cookie: {
+    expires: new Date(Date.now() + (1000 * 60 * 60 * 24))
+  }
 }))
 
 // Parse requests

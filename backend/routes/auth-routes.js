@@ -7,7 +7,8 @@ const cors = require('cors');
 const { registerUser } = require('../controllers/registration-auth');
 const { loginUser } = require('../controllers/login-auth');
 const { getLoggedInUser } = require('../controllers/user');
-
+const { logoutUser } = require('../controllers/logout');
+ 
 // Handle cors
 router.use(cors({
     credentials: true,
@@ -18,6 +19,7 @@ router.use(cors({
 router.post('/register', registerUser)
 router.post('/login', loginUser)
 router.get('/dashboard', getLoggedInUser)
+router.post('/logout', logoutUser)
 
 // Export router
 module.exports = router; 
