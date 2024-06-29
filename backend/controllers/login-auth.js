@@ -49,7 +49,8 @@ async function loginUser(req, res) {
       console.log(error);
     }
   };
-
+  
+  // Export loginUser controller 
   module.exports = {
     loginUser
   }

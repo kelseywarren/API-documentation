@@ -134,7 +134,7 @@ async function registerUser (req, res) {
 };
 
   
-// Export controller functions to be used in routes
+// Export registration controller 
 module.exports = {
     registerUser
 };

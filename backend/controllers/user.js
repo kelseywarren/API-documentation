@@ -14,6 +14,7 @@
     }
   };
 
+  // Export getLoggedInUser controller 
   module.exports = {
     getLoggedInUser
   }
