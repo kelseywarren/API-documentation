@@ -4,7 +4,7 @@ const router = express.Router();
 const cors = require('cors');
 
 // Import controllers 
-const { test, registerUser, loginUser } = require('../controllers/auth-controller');
+const { test, registerUser, loginUser, getLoggedInUser } = require('../controllers/auth-controller');
 
 // Handle cors
 router.use(cors({
@@ -16,6 +16,7 @@ router.use(cors({
 router.get('/', test)
 router.post('/register', registerUser)
 router.post('/login', loginUser)
+router.get('/dashboard', getLoggedInUser)
 
 // Export router
 module.exports = router; 
