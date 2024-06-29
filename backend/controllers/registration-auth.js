@@ -1,14 +1,7 @@
 // Import User model to check user data against database
 const User = require('../models/users');
 
-// Import password hash helper functions for authentication
-const { passwordHash, comparePassword } = require("../helpers/auth");
-
-
-// Test function
-function test(req, res) {
-    res.json('test route working')
-};
+const { passwordHash } = require("../helpers/auth");
 
 // Function for registering user 
 async function registerUser (req, res) {
@@ -140,72 +133,8 @@ async function registerUser (req, res) {
   }  
 };
 
-// Function for logging in user
-async function loginUser(req, res) {
-    try {
-      const { identifier, password } = req.body;
-        
-      // Checks if email or username field is empty
-      if (!identifier) {
-        return res.json({
-          error: "email or username required",
-        });
-      } 
-      // Check if password field is empty
-      if (!password) {
-        return res.json({
-          error: "password is required",
-        });
-      }
-    
-      // Check if email or username is in database
-      const user = await User.findOne({
-        $or: [{ email: identifier }, { username: identifier }]
-      });
-      if (!user) {
-        return res.json({
-          error: "login credentials not found",
-        });
-      } 
-    // Check if password entered by user matches password stored in database
-    const pwMatch = await comparePassword(password, user.password);
-    if (!pwMatch) {
-      res.json({
-        error: "Invalid login credentials entered",
-      });
-    } else {
-      req.session.user={
-        id: user._id,
-        username: user.username,
-        email: user.email
-      }
-      return res.json("user successfully logged in!");
-    }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  // Get username from session stored on mongodb 
-  async function getLoggedInUser(req, res)  {
-    try {
-      if (req.session.user) {
-        // Retrieve user details from session
-        const { username } = req.session.user;
-        res.json({ username });
-      } else {
-        res.status(401).json({ error: 'user not logged in' });
-      }
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: 'server error' });
-    }
-  };
   
 // Export controller functions to be used in routes
 module.exports = {
-    test,
-    registerUser,
-    loginUser,
-    getLoggedInUser
+    registerUser
 };
