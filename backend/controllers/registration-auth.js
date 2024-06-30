@@ -23,7 +23,7 @@ async function registerUser (req, res) {
     const specialCheck = /(?=.*[!@#$%^&*])/;
     const passwordLengthCheck = /(?=.{8,})/;
     
-    //Check if form is empty
+    // Check if form is empty
     if (!username && !email && !password) {
         return res.json({
             error: 'username, email, and password are required'

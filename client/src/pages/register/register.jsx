@@ -45,34 +45,40 @@ function Register () {
         // Form filled out by user 
         <div>
             <form onSubmit={registerUser}>
-                <label for="username">Username</label>
+                <label htmlFor="username">Username</label>
                 <br></br>
                     <input
                     placeholder="username..."
                     type="text"
+                    id="username"
                     value={userData.username}
                     onChange={(e) => setUserData({...userData, username: e.target.value})}
                     className="username"
+                    autoComplete="on"
                     /> 
                 <br></br>
-                <label for="email">Email</label>
+                <label htmlFor="email">Email</label>
                 <br></br>
                     <input 
                     placeholder="email..."
                     type="text"
+                    id="email"
                     value={userData.email}
                     onChange={(e) => setUserData({...userData, email: e.target.value})}
                     className="email" 
+                    autoComplete="on"
                     />
                 <br></br>
-                <label for="password">Password</label>
+                <label htmlFor="password">Password</label>
                 <br></br>
                     <input
                     placeholder="password..."
                     type="text"
+                    id="password"
                     value={userData.password}
                     onChange={(e) => setUserData({...userData, password: e.target.value})}
                     className="password" 
+                    autoComplete="on"
                     />
                 <br></br><br></br>
                 <button>Create Account</button>
